@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fichas de datos a aspirantes del CBTis</title>
+    <link rel="stylesheet" href="css/estiloindexx.css">
+</head>
+<body>
+    <div id="app">
+        <h1>FICHAS DE DATOS A ASPIRANTES DEL CBTIS</h1>
+
+        <!-- Datos generales y de ficha -->
+        <label>Ciclo:</label>
+        <input type="text" v-model="ciclo" placeholder="Ej. 2023-2024">
+        <br><br>
+
+        <label>Número de Ficha:</label>
+        <input type="text" v-model="numeroFicha" placeholder="Ej. 00002">
+        <br><br>
+
+        <!-- Especialidad solicitada -->
+        <h3>Especialidad solicitada</h3>
+        <label>Opción 1:</label>
+        <input type="text" v-model="opcion1">
+        <br><br>
+
+        <label>Opción 2:</label>
+        <input type="text" v-model="opcion2">
+        <br><br>
+
+        <label>Opción 3:</label>
+        <input type="text" v-model="opcion3">
+        <br><br>
+
+        <label>CURP:</label>
+        <input type="text" v-model="curp" maxlength="18">
+        <br><br>
+
+        <!-- Datos personales -->
+        <h3>Datos del aspirante</h3>
+        <label>Apellido Paterno:</label>
+        <input type="text" v-model="apellidoPaterno">
+        <br><br>
+
+        <label>Apellido Materno:</label>
+        <input type="text" v-model="apellidoMaterno">
+        <br><br>
+
+        <label>Nombre:</label>
+        <input type="text" v-model="nombre">
+        <br><br>
+
+        <label>Sexo:</label>
+        <label><input type="radio" value="Masculino" v-model="sexo"> Masculino</label>
+        <label><input type="radio" value="Femenino" v-model="sexo"> Femenino</label>
+        <br><br>
+
+        <label>Turno Solicitado:</label>
+        <label><input type="radio" value="Matutino" v-model="turno"> Matutino</label>
+        <label><input type="radio" value="Vespertino" v-model="turno"> Vespertino</label>
+        <br><br>
+
+        <label>Edad:</label>
+        <input type="number" v-model="edad">
+        <br><br>
+
+        <label>Fecha de nacimiento:</label>
+        <input type="text" v-model="diaNacimiento" placeholder="Día" size="4">
+        <input type="text" v-model="mesNacimiento" placeholder="Mes" size="6">
+        <input type="number" v-model="anioNacimiento" placeholder="Año" style="width: 80px;">
+        <br><br>
+
+        <!-- Datos de secundaria -->
+        <h3>Datos de secundaria</h3>
+        <label>Nombre de Sec. de procedencia:</label>
+        <input type="text" v-model="secProcedencia">
+        <br><br>
+
+        <label>Secundaria de egreso:</label>
+        <input type="text" v-model="secEgreso">
+        <br><br>
+
+        <label>Año en que concluyó la secundaria:</label>
+        <input type="number" v-model="anioConclusionSec">
+        <br><br>
+
+        <label>Promedio de secundaria:</label>
+        <input type="number" step="0.1" v-model="promedioSec">
+        <br><br>
+
+        <label>Entidad de la secundaria:</label>
+        <input type="text" v-model="entidadSec">
+        <br><br>
+
+        <!-- Domicilio y contacto -->
+        <h3>Domicilio y contacto</h3>
+        <label>Nombre del Padre o Tutor del Aspirante:</label>
+        <input type="text" v-model="nombrePadreTutor">
+        <br><br>
+
+        <label>Calle y número:</label>
+        <input type="text" v-model="calleNumero">
+        <br><br>
+
+        <label>Colonia:</label>
+        <input type="text" v-model="colonia">
+        <br><br>
+
+        <label>Código postal:</label>
+        <input type="text" v-model="codigoPostal">
+        <br><br>
+
+        <label>Delegación o municipio:</label>
+        <input type="text" v-model="delegacionMunicipio">
+        <br><br>
+
+        <label>Teléfono 1:</label>
+        <input type="tel" v-model="telefono1">
+        <br><br>
+
+        <label>Teléfono 2:</label>
+        <input type="tel" v-model="telefono2">
+        <br><br>
+
+        <label>Entidad Federativa:</label>
+        <input type="text" v-model="entidadFederativa">
+        <br><br>
+
+        <label>Ciudad:</label>
+        <input type="text" v-model="ciudad">
+        <br><br>
+
+        <!-- Examen -->
+        <h3>Examen</h3>
+        <label>Fecha y hora del examen:</label>
+        <input type="text" v-model="fechaHoraExamen" placeholder="Ej. 17 de Junio de 2023 a las 9:00 am">
+        <br><br>
+
+        <label>Aula:</label>
+        <input type="text" v-model="aula">
+        <br><br>
+
+        <button @click="registrarAlumno">Aceptar</button>
+
+        <h2>LISTA DE ASPIRANTES REGISTRADOS</h2>
+
+        <ul>
+            <li v-for="(alumno, indice) in alumnos" :key="indice">
+                <strong>Ficha {{ alumno.numeroFicha }}</strong> ({{ alumno.ciclo }}) -
+                {{ alumno.apellidoPaterno }} {{ alumno.apellidoMaterno }} {{ alumno.nombre }} |
+                CURP: {{ alumno.curp }} |
+                Edad: {{ alumno.edad }} |
+                Sexo: {{ alumno.sexo }} |
+                Turno: {{ alumno.turno }} |
+                Nacimiento: {{ alumno.diaNacimiento }}/{{ alumno.mesNacimiento }}/{{ alumno.anioNacimiento }} |
+                Sec. procedencia: {{ alumno.secProcedencia }} |
+                Sec. egreso: {{ alumno.secEgreso }} ({{ alumno.anioConclusionSec }}) |
+                Promedio: {{ alumno.promedioSec }} |
+                Entidad sec.: {{ alumno.entidadSec }} |
+                Opciones: [1: {{ alumno.opcion1 }}, 2: {{ alumno.opcion2 }}, 3: {{ alumno.opcion3 }}] |
+                Tutor: {{ alumno.nombrePadreTutor }} |
+                Dirección: {{ alumno.calleNumero }}, Col. {{ alumno.colonia }}, C.P. {{ alumno.codigoPostal }}, {{ alumno.delegacionMunicipio }}, {{ alumno.ciudad }}, {{ alumno.entidadFederativa }} |
+                Tel 1: {{ alumno.telefono1 }} / Tel 2: {{ alumno.telefono2 }} |
+                Examen: {{ alumno.fechaHoraExamen }} (Aula: {{ alumno.aula }})
+            </li>
+        </ul>
+
+        <h3>Total de aspirantes registrados: {{ alumnos.length }}</h3>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
